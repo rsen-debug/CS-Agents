@@ -2,7 +2,7 @@ name: Daily Ticket Summarizer
 
 on:
   schedule:
-    - cron: '00 3 * * *'   # Every day at 8:00 AM UTC — adjust to your timezone
+    - cron: '0 3 * * *'   # Every day at 3:00 AM UTC — adjust to your timezone
   workflow_dispatch:        # Allows manual runs from the GitHub Actions UI
 
 jobs:
