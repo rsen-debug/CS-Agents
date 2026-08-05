@@ -1,0 +1,39 @@
+name: CS Email Recommendation Engine
+
+on:
+  schedule:
+    # Runs at 06:00 UTC on every even-numbered day of the month.
+    # NOTE: cron has no native "every N days" — this is the standard
+    # approximation. It will occasionally run on two consecutive days
+    # around month boundaries (e.g. the 30th then the 1st). If you need
+    # a strict, drift-free 48-hour cadence, ping me and I'll set up a
+    # day-counter check inside the job instead.
+    - cron: '0 6 */2 * *'
+  workflow_dispatch: {}   # lets you trigger a run manually from the Actions tab
+
+jobs:
+  run-recommendation-engine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run recommendation engine
+        env:
+          CZ_BASE_URL: ${{ secrets.CZ_BASE_URL }}
+          CZ_AUTH_HEADER: ${{ secrets.CZ_AUTH_HEADER }}
+          CZ_IMPORT_APP_KEY: ${{ secrets.CZ_IMPORT_APP_KEY }}
+          CLOSE_API_KEY: ${{ secrets.CLOSE_API_KEY }}
+          DO_API_KEY: ${{ secrets.DO_API_KEY }}
+          LOOKBACK_DAYS: '3'
+        run: python recommendation_engine.py
