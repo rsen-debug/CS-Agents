@@ -30,7 +30,6 @@ jobs:
 
       - name: Run recommendation engine
         env:
-          CZ_BASE_URL: ${{ secrets.CZ_BASE_URL }}
           CZ_AUTH_HEADER: ${{ secrets.CZ_AUTH_HEADER }}
           CZ_IMPORT_APP_KEY: ${{ secrets.CZ_IMPORT_APP_KEY }}
           CLOSE_API_KEY: ${{ secrets.CLOSE_API_KEY }}
