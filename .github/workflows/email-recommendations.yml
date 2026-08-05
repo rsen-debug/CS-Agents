@@ -34,5 +34,5 @@ jobs:
           CZ_IMPORT_APP_KEY: ${{ secrets.CZ_IMPORT_APP_KEY }}
           CLOSE_API_KEY: ${{ secrets.CLOSE_API_KEY }}
           DO_API_KEY: ${{ secrets.DO_API_KEY }}
-          LOOKBACK_DAYS: '3'
+          LOOKBACK_DAYS: '15'
         run: python recommendation_engine.py
