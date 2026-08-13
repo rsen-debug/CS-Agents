@@ -387,7 +387,7 @@ def main():
             "pain_point": "PainPoint",
             "action_taken": "ActionTaken",
             "sentiment": "Sentiment",
-            "Primary_User_ID": "PrimaryUserId",
+            "Primary_User_ID": "UId",
             "chat_rating": "Rating",
         }
     )
