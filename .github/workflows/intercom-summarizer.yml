@@ -1,0 +1,33 @@
+name: CS Intercom Conversations Summarizer
+
+on:
+  schedule:
+    - cron: '0 0 * * *'   # 12:00 AM UTC
+    - cron: '0 12 * * *'  # 12:00 PM UTC
+  workflow_dispatch: {}   # lets you trigger a run manually from the Actions tab
+
+jobs:
+  run-intercom-summarizer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Intercom summarizer
+        env:
+          CZ_AUTH_HEADER: ${{ secrets.CZ_AUTH_HEADER }}
+          CZ_IMPORT_APP_KEY: ${{ secrets.CZ_IMPORT_APP_KEY }}
+          INTERCOM_ACCESS_TOKEN: ${{ secrets.INTERCOM_ACCESS_TOKEN }}
+          DO_API_KEY: ${{ secrets.DO_API_KEY }}
+          LOOKBACK_HOURS: '24'
+        run: python intercom_conversations.py
