@@ -29,5 +29,5 @@ jobs:
           CZ_IMPORT_APP_KEY: ${{ secrets.CZ_IMPORT_APP_KEY }}
           INTERCOM_ACCESS_TOKEN: ${{ secrets.INTERCOM_ACCESS_TOKEN }}
           DO_API_KEY: ${{ secrets.DO_API_KEY }}
-          LOOKBACK_HOURS: '24'
+          LOOKBACK_HOURS: '72'
         run: python intercom_conversations.py
