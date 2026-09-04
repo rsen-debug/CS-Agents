@@ -421,6 +421,7 @@ def main():
 
     df_final.to_csv(OUTPUT_CSV, index=False)
     print(f"Wrote {len(df_final)} rows to {OUTPUT_CSV}")
+    print(df_final.head())
 
     push_to_churnzero(OUTPUT_CSV)
 
