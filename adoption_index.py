@@ -132,7 +132,7 @@ def check_adopted(row, feat, usage_col) -> bool:
     if feat == "copilot":
         # Adopted unless blank / None / Free Starter
         val_str = str(val).strip()
-        return val_str not in ["", "None", "nan", "NaN", "Free Starter"]
+        return val_str not in ["", "None", "nan", "NaN", "Free Starter","Default","default"]
 
     try:
         return float(val) > 0
