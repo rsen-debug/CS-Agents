@@ -1,0 +1,29 @@
+name: Daily Feature Adoption Index
+
+on:
+  schedule:
+    - cron: '59 23 * * *'   # 23:59 UTC every day (end of day)
+  workflow_dispatch: {}     # manual run from the Actions tab
+
+jobs:
+  run-adoption-index:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run adoption index
+        env:
+          CZ_AUTH_HEADER: ${{ secrets.CZ_AUTH_HEADER }}
+          CZ_IMPORT_APP_KEY: ${{ secrets.CZ_IMPORT_APP_KEY }}
+        run: python adoption_index.py
