@@ -1,0 +1,29 @@
+name: Daily ChurnZero Onboarding Metrics
+
+on:
+  schedule:
+    - cron: '59 23 * * *'   # 23:59 UTC every day (end of day)
+  workflow_dispatch: {}     # manual run from the Actions tab
+
+jobs:
+  run-onboarding-metrics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run onboarding metrics
+        env:
+          CZ_AUTH_HEADER: ${{ secrets.CZ_AUTH_HEADER }}
+          CZ_IMPORT_APP_KEY: ${{ secrets.CZ_IMPORT_APP_KEY }}
+        run: python onboarding_metrics.py
